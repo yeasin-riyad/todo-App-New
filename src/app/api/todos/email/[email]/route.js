@@ -1,5 +1,3 @@
-// app/api/todos/[email]/route.js
-
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/database/db";
 
@@ -11,9 +9,8 @@ async function initializeTodosCollection() {
     }
 }
 
-// Define the GET request handler for the dynamic route
-export async function GET(request, { params }) {
-    const { email } = params;
+export async function GET(request, context) {
+    const { email } = await context.params;
 
     if (!email) {
         return NextResponse.json({ message: "Email is required" }, { status: 400 });
@@ -31,9 +28,8 @@ export async function GET(request, { params }) {
     }
 }
 
-// Define the DELETE request handler for the dynamic route
-export async function DELETE(req, { params }) {
-    const { email } = params;
+export async function DELETE(req, context) {
+    const { email } = await context.params;
 
     if (!email) {
         return NextResponse.json({ message: "Email is required" }, { status: 400 });
